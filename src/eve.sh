@@ -35,13 +35,15 @@ handle_git_checkFolders() {
         return   1
     fi
 
-find "$path" -type d -name '.git' -exec dirname {} \; | while read -r repo_dir; do
-    cd "$repo_dir"
-    git_status_output=$(git status --porcelain)
-    if [[ -n "$git_status_output" ]]; then
-        echo "Uncommitted changes detected in repository at: $repo_dir"
-    fi
-done
+    find "$path" -type d -name '.git' -exec dirname {} \; | while read -r repo_dir; do
+        cd "$repo_dir"
+        git_status_output=$(git status --porcelain)
+        if [[ -n "$git_status_output" ]]; then
+            red='\033[0;31m'
+            reset='\033[0m'
+            echo -e "${red}Uncommitted changes detected${reset} at: $repo_dir"
+        fi
+    done
 }
 
 
@@ -50,31 +52,37 @@ done
 handle_reinstall() {
     local formulas=("neovim" "tmux" "btop" "gh")
     local casks=("raycast" "wezterm")
-
-    echo "Checking and installing Homebrew formulas and casks..."
+    local total_steps=$(( ${#formulas[@]} + ${#casks[@]}   ))
+    local step=0
+    local start_time=$(date +%s)
+    local green='\033[0;32m'
+    local reset='\033[0m'
 
     for formula in "${formulas[@]}"; do
-        if ! brew list | grep -q "^${formula}$"; then
-            echo "Installing Homebrew formula: ${formula}"
+        ((step++))
+        local elapsed_time=$(($(date +%s) - $start_time))
+        local eta=$(( ($elapsed_time * $total_steps) / $step - $elapsed_time   ))
+        local percentage=$(( ($step *   100) / $total_steps   ))
+        local progress_bar=$(printf "%*s" $((${#total_steps}-$step)) "" | tr ' ' '#')
+        echo -ne "${progress_bar}${green}###${reset} Progress: ${percentage}% ETA: $((eta/60)) minutes $((eta%60)) seconds\r"
+        if ! brew list   2>/dev/null | grep -q "^${formula}$"; then
             brew install "${formula}" || true
-        else
-            echo "Homebrew formula ${formula} is already installed."
         fi
     done
 
     for cask in "${casks[@]}"; do
-        if ! brew list --cask | grep -q "^${cask}$"; then
-            echo "Installing Homebrew cask: ${cask}"
-            brew install --cask "${cask}" || true
-        else
-            echo "Homebrew cask ${cask} is already installed."
+        ((step++))
+        local elapsed_time=$(($(date +%s) - $start_time))
+        local eta=$(( ($elapsed_time * $total_steps) / $step - $elapsed_time   ))
+        local percentage=$(( ($step *   100) / $total_steps   ))
+        local progress_bar=$(printf "%*s" $((${#total_steps}-$step)) "" | tr ' ' '#')
+        echo -ne "${progress_bar}${green}###${reset} Progress: ${percentage}% ETA: $((eta/60)) minutes $((eta%60)) seconds\r"
+        if ! brew list --cask   2>/dev/null | grep -q "^${cask}$"; then
+            brew install --cask "${cask}" >/dev/null   2>&1 || true
         fi
     done
-
-    echo "Reinstallation complete."
+    echo -e "${green}Reinstallation complete.${reset}"
 }
-
-
 
 
 if [[ $# -eq  0 ]]; then
