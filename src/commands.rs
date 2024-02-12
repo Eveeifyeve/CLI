@@ -23,8 +23,4 @@ pub struct GitCheck {
 /// Reinstall apps.
 #[derive(FromArgs, PartialEq, Debug)]
 #[argh(subcommand, name = "reinstall")]
-pub struct Reinstall {
-    #[argh(switch, long = "apps")]
-    /// do you want casks?
-    pub apps: bool,
-}
+pub struct Reinstall {}
