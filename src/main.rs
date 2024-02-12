@@ -23,8 +23,8 @@ fn main() {
     let app_config: AppConfig = argh::from_env();
 
     match app_config._commands {
-        Commands::Reinstall(reinstall_arg) => {
-        cli::reinstall::main(reinstall_arg.apps);
+        Commands::Reinstall(_) => {
+        cli::reinstall::main();
     },
         Commands::GitCheck(_) => {
 

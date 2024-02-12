@@ -7,7 +7,7 @@ use crate::{CASKS_INSTALL, FORMULA_INSTALL};
 
 
 
-pub fn main(reinstall_apps: bool) {
+pub fn main() {
         let output = Command::new("which")
             .arg("brew")
             .output()
@@ -37,12 +37,9 @@ pub fn main(reinstall_apps: bool) {
             }
         }
 
-        if reinstall_apps == true {
-            install_casks();
-        } else {
-            install_formulas();
-        }
-
+       
+        install_formulas();
+        install_casks();
 }
 
 fn install_formulas() {
