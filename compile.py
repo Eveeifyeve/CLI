@@ -19,8 +19,8 @@ py_compile.compile(str(eve_py_path), optimize=0, cfile=str(current_dir / "dist/e
 
 # Generate .sh script
 with open(current_dir / "dist/eve.sh", 'w') as f:
-    f.write('#!/bin/bash\n')
-    f.write('python3 eve.pyc\n')
+    f.write('#!/bin/bash')
+    f.write('\npython3 eve.pyc\n')
 
 # Generate .ps1 script
 with open(current_dir / "dist/eve.ps1", 'w') as f:
