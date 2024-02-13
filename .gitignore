@@ -1,7 +1,5 @@
 
 ### Output ###
-/build/
-/*.egg-info/
 /dist/
 
 ### Archive ###
