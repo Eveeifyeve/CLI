@@ -4,7 +4,7 @@
 $scriptUrl = "https://raw.githubusercontent.com/Eveeifyeve/cli/Stable/src/eve.ps1"
 
 # Define the destination path where the script will be saved
-$destinationPath = "~/bin/eve.ps1"
+$destinationPath = "/usr/local/bin/"
 
 # Download the eve.ps1 script
 Invoke-WebRequest -Uri $scriptUrl -OutFile $destinationPath
