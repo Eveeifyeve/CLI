@@ -1,1 +1,0 @@
-/Users/eveeify/Projects/cli/src/eve.sh
