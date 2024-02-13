@@ -7,13 +7,17 @@ show_help() {
     local commands=$(sed -n '/^# Command:/s/^# Command: //p' "$script_path")
     local descriptions=$(sed -n '/^# Description:/s/^# Description: //p' "$script_path")
 
-    printf "EveeifyEve CLI\n\nUsage:\n\nCommands:\n"
+    local aqua='\033[0;36m' # Aqua color
+    local purple='\033[0;35m' # Purple color
+    local reset='\033[0m' # Reset color
+
+        printf "${aqua}EveeifyEve ${purple}CLI\n\n${reset}Usage:\n\n${aqua}Commands:\n"
 
     paste -d '\t' <(echo "$commands") <(echo "$descriptions") | while IFS=$'\t' read -r command description; do
-        printf "  %s\t%s\n" "$command" "$description"
+        printf "  ${aqua}%s${reset}\t%s\n" "$command" "$description"
     done
 
-    printf "\nOptions:\n  -h, --help     Show this help message\n"
+    printf "\n${purple}Options:\n  -h, --help     Show this help message\n${reset}"
 }
 
 # Command: git_checkFolders
@@ -81,6 +85,7 @@ handle_reinstall() {
             brew install --cask "${cask}" >/dev/null   2>&1 || true
         fi
     done
+    clear
     echo -e "${green}Reinstallation complete.${reset}"
 }
 
