@@ -34,4 +34,4 @@ If you want to help out and make the cli better [checkout here](./contributing.m
 
 
 ## Licence
-This project is licensed under the [Simplified BSD/Clause 2 Licence ](./LICENSE).
+This project is licensed under the [BSD 2-Clause "Simplified" License](./LICENSE).
