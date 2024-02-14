@@ -1,6 +1,7 @@
 import click
 import os
 import subprocess
+import shlex
 
 @click.group()
 def cli():
@@ -110,6 +111,19 @@ def reinstall_app(formula_name):
         pass
 
 cli.add_command(reinstall)
+
+
+@cli.command(name='link_folders')
+@click.argument('root_folder', type=click.Path(exists=True))
+@click.option('--target', default='~/links', help='Target directory for symbolic links.')
+def link_folders(root_folder, target):
+    """Create a symbolic link from ROOT_FOLDER to TARGET."""
+    target = os.path.expanduser(target)
+    if not os.path.exists(target):
+        subprocess.run(['ln', '-s', root_folder, target], check=True)
+        click.echo(f"Created link: {target} -> {root_folder}")
+    else:
+        click.echo(f"Link already exists: {target}")
 
 
 if __name__ == '__main__':
