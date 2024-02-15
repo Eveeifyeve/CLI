@@ -2,9 +2,9 @@ name: Publish CLI
 on:
   push:
     branches:
-      - 'stable'
-      - 'alpha'
-      - 'beta'
+      - 'Stable'
+      - 'Alpha'
+      - 'Beta'
 jobs:
   build:
     name: Build
