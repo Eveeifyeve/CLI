@@ -6,7 +6,7 @@ on:
       - 'Alpha'
       - 'Beta'
 jobs:
-  build:
+  publish:
     name: Build
     runs-on: ubuntu-latest
     steps:
@@ -43,22 +43,9 @@ jobs:
             exit  1
           fi
           echo "All compiled files are present."
-
-
-  publish:
-    name: Publish
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v4
-      
-        # Debuging
-      - name: List all files in dist
-        run: ls -la ./dist
-        
       - name: Upload to artifact
         uses: actions/upload-artifact@v4
         with:
           name: Eve-Cli_Output
           path: ./dist
+
