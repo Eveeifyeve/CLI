@@ -1,4 +1,4 @@
-name: Publish CLI
+name: Test CLI
 on:
   push:
     branches:
@@ -6,7 +6,7 @@ on:
       - 'Alpha'
       - 'Beta'
 jobs:
-  publish:
+   compile:
     name: Build
     runs-on: ubuntu-latest
     steps:
@@ -43,9 +43,4 @@ jobs:
             exit  1
           fi
           echo "All compiled files are present."
-      - name: Upload to artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: Eve-Cli_Output
-          path: ./dist
 
