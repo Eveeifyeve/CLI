@@ -6,12 +6,21 @@ if ! command -v python3 &> /dev/null; then
     exit  1
 fi
 
-# Define the target directory
-TARGET_DIR="/usr/local/bin/"
+# Define the target directory for eve.pyc
+EVE_PYC_TARGET_DIR="$HOME/.cli/"
 
-# Check if the user has write permissions to the target directory
-if [ ! -w "$TARGET_DIR" ]; then
-    echo "Error: You do not have write permissions to $TARGET_DIR. Run the script with sudo."
+# Check if the target directory for eve.pyc exists and create it if it doesn't
+if [ ! -d "$EVE_PYC_TARGET_DIR" ]; then
+    mkdir -p "$EVE_PYC_TARGET_DIR"
+    if [ $? -ne  0 ]; then
+        echo "Error: Failed to create the target directory $EVE_PYC_TARGET_DIR."
+        exit  1
+    fi
+fi
+
+# Check if the user has write permissions to the target directory for eve.pyc
+if [ ! -w "$EVE_PYC_TARGET_DIR" ]; then
+    echo "Error: You do not have write permissions to $EVE_PYC_TARGET_DIR. Run the script with sudo."
     exit  1
 fi
 
@@ -23,25 +32,28 @@ EVE_PYC_URL="https://github.com/eveeifyeve/cli/releases/download/$LATEST_RELEASE
 EVE_URL="https://github.com/eveeifyeve/cli/releases/download/$LATEST_RELEASE/eve"
 
 # Inform the user that the download is starting
-echo "Downloading the latest release of eve.pyc and eve..."
+echo "Downloading the latest release of eve.pyc..."
 
 # Download eve.pyc using curl
-curl -o "${TARGET_DIR}eve.pyc" "${EVE_PYC_URL}"
+curl -o "${EVE_PYC_TARGET_DIR}/eve.pyc" "${EVE_PYC_URL}"
 if [ $? -ne  0 ]; then
     echo "Error: Failed to download eve.pyc."
     exit  1
 fi
 
+# Change permissions of eve.pyc if necessary
+chmod +x "${EVE_PYC_TARGET_DIR}/eve.pyc"
+
 # Download eve using curl
-curl -o "${TARGET_DIR}eve" "${EVE_URL}"
+echo "Downloading the latest release of eve..."
+curl -o "/usr/local/bin/eve" "${EVE_URL}"
 if [ $? -ne  0 ]; then
     echo "Error: Failed to download eve."
     exit  1
 fi
 
-# Change permissions of files if necessary
-chmod +x "${TARGET_DIR}eve.pyc"
-chmod +x "${TARGET_DIR}eve"
+# Change permissions of eve if necessary
+chmod +x "/usr/local/bin/eve"
 
 # Install the click package using pip3
 echo "Installing the click package..."
