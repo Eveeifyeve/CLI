@@ -43,4 +43,12 @@ fi
 chmod +x "${TARGET_DIR}eve.pyc"
 chmod +x "${TARGET_DIR}eve"
 
+# Install the click package using pip3
+echo "Installing the click package..."
+pip3 install click
+if [ $? -ne  0 ]; then
+    echo "Error: Failed to install the click package."
+    exit  1
+fi
+
 echo "Success: Files downloaded and installed successfully. You can now run 'eve' from anywhere."
