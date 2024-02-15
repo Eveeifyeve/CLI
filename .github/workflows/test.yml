@@ -38,8 +38,8 @@ jobs:
             echo "Error: eve.ps1 script not found."
             exit  1
           fi
-          if [ ! -f dist/eve.pyc ]; then
-            echo "Error: eve.pyc bytecode not found."
+          if [ ! -f dist/eve.py ]; then
+            echo "Error: eve.py not found."
             exit  1
           fi
           echo "All compiled files are present."
