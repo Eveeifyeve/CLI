@@ -25,7 +25,8 @@ if [ ! -w "$EVE_PYC_TARGET_DIR" ]; then
 fi
 
 # Get the latest release tag name
-LATEST_RELEASE=$(curl --silent "https://api.github.com/repos/eveeifyeve/cli/releases/latest" | grep '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+LATEST_RELEASE=$(curl --silent "https://api.github.com/repos/eveeifyeve/cli/releases/latest" | grep -m  1 '"tag_name":' | sed -E 's/.*"([^"]+)".*/\1/')
+
 
 # Construct the URLs for the assets
 EVE_PYC_URL="https://github.com/eveeifyeve/cli/releases/download/$LATEST_RELEASE/eve.py"
@@ -35,18 +36,18 @@ EVE_URL="https://github.com/eveeifyeve/cli/releases/download/$LATEST_RELEASE/eve
 echo "Downloading the latest release of eve.py..."
 
 # Download eve.pyc using curl
-curl -o "${EVE_PYC_TARGET_DIR}/eve.py" "${EVE_PYC_URL}"
+curl -L "${EVE_PYC_URL}" > "${EVE_PYC_TARGET_DIR}/eve.py"
 if [ $? -ne  0 ]; then
     echo "Error: Failed to download eve.py."
     exit  1
 fi
 
 # Change permissions of eve.pyc if necessary
-chmod +x "${EVE_PYC_TARGET_DIR}/eve.py"
+chmod +x "${EVE_PYC_TARGET_DIR}eve.py"
 
 # Download eve using curl
 echo "Downloading the latest release of eve..."
-curl -o "/usr/local/bin/eve" "${EVE_URL}"
+curl -L "${EVE_URL}" > "/usr/local/bin/eve"
 if [ $? -ne  0 ]; then
     echo "Error: Failed to download eve."
     exit  1
