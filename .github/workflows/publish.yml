@@ -44,6 +44,10 @@ jobs:
           fi
           echo "All compiled files are present."
 
+      # Debuging
+      - name: List all files in dist
+        run: ls -la ./dist
+
   publish:
     name: Publish
     needs: build
