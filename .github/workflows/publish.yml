@@ -56,4 +56,4 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Eve-Cli_Output
-          path: ./dist/
+          path: ./dist
