@@ -10,6 +10,11 @@ current_dir = Path(__file__).resolve().parent
 # Construct the path to eve.py
 eve_py_path = current_dir / 'src' / 'eve.py'
 
+# Create the build directory if it doesn't exist
+build_dir = current_dir / "build"
+build_dir.mkdir(parents=True, exist_ok=True)
+
+
 # Dist
 dist_dir = current_dir / "dist"
 dist_dir.mkdir(parents=True, exist_ok=True)
@@ -18,7 +23,6 @@ dist_dir.mkdir(parents=True, exist_ok=True)
 os.remove(current_dir / "../dist/eve.py") if os.path.exists(current_dir / "../dist/eve.py") else None
 os.remove(current_dir / "../dist/eve") if os.path.exists(current_dir / "../dist/eve") else None
 os.remove(current_dir / "../dist/eve.exe") if os.path.exists(current_dir / "../dist/eve.exe") else None
-os.mkdir(current_dir / "build") if os.path.exists(current_dir / "build") else None
 
 # Check if the current operating system is Windows
 if platform.system() == 'Windows':
