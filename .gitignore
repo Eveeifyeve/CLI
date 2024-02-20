@@ -1,6 +1,8 @@
 
 ### Output ###
 /dist/
+/build/
+eve.spec
 
 ### Archive ###
 /archive/
