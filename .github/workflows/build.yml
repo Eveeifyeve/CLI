@@ -23,9 +23,16 @@ jobs:
 
     - name: Run compile.py
       run: python compile.py
-
+    
+    
+    - name: Remove test.sh from artifact
+      run: |
+       if [ -f dist/test.sh ]; then
+         rm dist/test.sh
+       fi
+    
     - name: Archive production artifacts
       uses: actions/upload-artifact@v2
       with:
         name: dist-artifact
-        path: dist/
+        path: dist/*
