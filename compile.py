@@ -10,10 +10,6 @@ current_dir = Path(__file__).resolve().parent
 # Construct the path to eve.py
 eve_py_path = current_dir / 'src' / 'eve.py'
 
-# Create the build directory if it doesn't exist
-build_dir = current_dir / "build"
-build_dir.mkdir(parents=True, exist_ok=True)
-
 
 # Dist
 dist_dir = current_dir / "dist"
@@ -26,10 +22,9 @@ os.remove(current_dir / "../dist/eve.exe") if os.path.exists(current_dir / "../d
 
 # Check if the current operating system is Windows
 if platform.system() == 'Windows':
-    subprocess.run(["pyinstaller", "--noconfirm", "--onefile", "--console", "--strip", "./build", str(eve_py_path)], check=True)
+    subprocess.run(["pyinstaller", "--noconfirm", "--onefile", "--console", str(eve_py_path)], check=True)
 else:
     print("PyInstaller is only supported on Windows.")
-
 
 # Generate .sh script
 with open(current_dir / "dist/eve", 'w') as f:
