@@ -19,7 +19,7 @@ os.remove(current_dir / "../dist/eve") if os.path.exists(current_dir / "../dist/
 os.remove(current_dir / "../dist/eve.exe") if os.path.exists(current_dir / "../dist/eve.exe") else None
 
 
-subprocess.run(["pyinstaller", "--onefile", str(eve_py_path)], check=True)
+subprocess.run(["pyinstaller", "--onefile", "--specpath", "./build", str(eve_py_path)], check=True)
 
 
 # Generate .sh script
