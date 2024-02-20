@@ -18,10 +18,10 @@ dist_dir.mkdir(parents=True, exist_ok=True)
 os.remove(current_dir / "../dist/eve.py") if os.path.exists(current_dir / "../dist/eve.py") else None
 os.remove(current_dir / "../dist/eve") if os.path.exists(current_dir / "../dist/eve") else None
 os.remove(current_dir / "../dist/eve.exe") if os.path.exists(current_dir / "../dist/eve.exe") else None
+os.mkdir(current_dir / "build") if os.path.exists(current_dir / "build") else None
 
 # Check if the current operating system is Windows
 if platform.system() == 'Windows':
-    os.mkdir(current_dir / "build") if os.path.exists(current_dir / "build") else None
     subprocess.run(["pyinstaller", "--noconfirm", "--onefile", "--console", "--strip", "./build", str(eve_py_path)], check=True)
 else:
     print("PyInstaller is only supported on Windows.")
