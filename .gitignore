@@ -1,11 +1,1 @@
-
-### Output ###
-/dist/
-/build/
-
-### Archive ###
-/archive/
-
-
-### OS ###
-.DS_Store
+/target
