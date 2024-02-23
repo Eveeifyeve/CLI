@@ -20,6 +20,7 @@ fn cli() -> Command {
         .about("Checks if you have commited in folders")
         .arg(arg!(<PATH> "").value_parser(clap::value_parser!(PathBuf)))
     )
+    .subcommand(Command::new("Reinstall").about("Reinstalls Eveeifyeve"))
     .help_template(format!("{}{{name}} {{version}}\n{{author-with-newline}}{{about-with-newline}}\n{{usage-heading}} {{usage}}\n\n {}Commands: \n{{subcommands}}\n {}Options: \n{{options}}", CYAN, YELLOW, YELLOW))
 }
 
