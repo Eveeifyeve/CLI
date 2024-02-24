@@ -1,6 +1,6 @@
 #[allow(dead_code)]
 mod ascii;
-mod gitcheck;
+mod git;
 mod reinstall;
 
 use std::path::PathBuf;
@@ -30,7 +30,7 @@ fn main() {
     match commands.subcommand() {
         Some(("Check_commits", sub_match)) => {
             if let Some(path) = sub_match.get_one::<PathBuf>("PATH") {
-                gitcheck::main(path)
+                git::check(path)
             }
         }
         Some(("Reinstall", sub_match)) => {
