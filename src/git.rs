@@ -1,7 +1,7 @@
 use rayon::prelude::*;
 use std::{fs, path::PathBuf, process::Command, sync::Mutex};
 
-pub fn main(path: &PathBuf) {
+pub fn check(path: &PathBuf) {
     let git_dirs = collect_git_dirs(path);
 
     git_dirs.par_iter().for_each(|git_dir| {
