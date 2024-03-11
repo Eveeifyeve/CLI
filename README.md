@@ -1,9 +1,7 @@
-# cli
+# Eveeifyeve CLI
 My own custom CLI Made in rust
 
 
-Prerequisites:
-- Python => 3.8
 
 ## Installing/Running
 
@@ -13,17 +11,9 @@ brew tap eveeifyeve/homebrew-tap
 brew install cli
 ```
 
-### Scoop(Windows)
 
-### Macos/Linux
-```shell
-curl ~/downloads https://raw.githubusercontent.com/Eveeifyeve/cli/Stable/install.sh
-chmod -x ~/downloads/install.sh
-cd ~/downloads
-/install.sh
-```
+### Macos
 
-### Windows(powershell)
 ```
 ```
 
