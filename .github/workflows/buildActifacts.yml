@@ -16,7 +16,6 @@ jobs:
       - name: Install Rust
         uses: actions-rs/toolchain@v1
         with:
-          profile: minimal
           toolchain: stable
           override: true
       - name: Install rust-fmt
@@ -47,11 +46,8 @@ jobs:
       - name: Install Rust
         uses: actions-rs/toolchain@v1
         with:
-          profile: minimal
           toolchain: stable
           override: true
-      - name: Rustup install target
-        run: rustup target add ${{matrix.target}}
       - name: Install rust-fmt
         run: rustup component add rustfmt
       - name: Build
