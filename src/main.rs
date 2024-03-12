@@ -11,7 +11,7 @@ use clap::{arg, Command};
 fn cli() -> Command {
     Command::new("eve")
     .about("A CLI Made for Eveeifyeve")
-    .version("1.0.1")
+    .version("1.0.2")
     .subcommand_required(true)
     .arg_required_else_help(true)
     .allow_external_subcommands(true)
@@ -35,7 +35,7 @@ fn main() {
     match commands.subcommand() {
         Some(("Check_commits", sub_match)) => {
             if let Some(path) = sub_match.get_one::<PathBuf>("PATH") {
-                git::main(path, "status")
+                git::statusr(path)
             }
         }
         Some(("Reinstall", sub_match)) => {

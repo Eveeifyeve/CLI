@@ -102,15 +102,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "98cc8fbded0c607b7ba9dd60cd98df59af97e84d24e49c8557331cfc26d301ce"
 
 [[package]]
-name = "cli"
-version = "1.0.2"
-dependencies = [
- "clap",
- "crossterm",
- "rayon",
-]
-
-[[package]]
 name = "colorchoice"
 version = "1.0.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -171,6 +162,15 @@ name = "either"
 version = "1.10.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "11157ac094ffbdde99aa67b23417ebdd801842852b500e395a45a9c0aac03e4a"
+
+[[package]]
+name = "eve"
+version = "1.0.2"
+dependencies = [
+ "clap",
+ "crossterm",
+ "rayon",
+]
 
 [[package]]
 name = "libc"

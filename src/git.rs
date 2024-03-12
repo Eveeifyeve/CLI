@@ -1,13 +1,12 @@
-use clap::Args;
 use rayon::prelude::*;
-use std::{env, fs, path::PathBuf, process::Command, sync::Mutex};
+use std::{fs, path::PathBuf, process::Command, sync::Mutex};
 
-pub fn main(path: &PathBuf, command: &str) {
+pub fn statusr(path: &PathBuf) {
     let git_dirs = collect_git_dirs(path);
 
     git_dirs.par_iter().for_each(|git_dir| {
         let output = Command::new("git")
-            .arg(command)
+            .arg("status")
             .current_dir(&git_dir)
             .output()
             .expect("Failed to execute git status");
