@@ -38,7 +38,7 @@ fn main() {
                 git::statusr(path)
             }
         }
-        Some(("reinstall", sub_match)) => {
+        Some(("reinstall", _)) => {
             reinstall::main();
         }
 
