@@ -2,6 +2,7 @@
 mod ascii;
 mod git;
 mod reinstall;
+mod test;
 
 use std::path::PathBuf;
 
@@ -45,3 +46,7 @@ fn main() {
         _ => unreachable!(),
     }
 }
+
+
+
+
