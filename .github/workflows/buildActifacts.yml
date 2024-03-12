@@ -55,27 +55,14 @@ jobs:
         with:
           command: build
           args: --release --bin eve
-      - name: Package (Windows)
-        shell: powershell
-        run: |
-          if (${{ matrix.os }} -eq "ubuntu-latest" -or ${{ matrix.os }} -eq "macos-latest") {
-            tar -czvf eve-${{ matrix.os }}.tar.gz -C target/release/ eve
-          } elseif (${{ matrix.os }} -eq "windows-latest") {
-            Compress-Archive -Path target\release\eve.exe -DestinationPath eve-${{ matrix.os }}.zip
-          }
-      - name: Package (Linux/macOS)
-        shell: bash
-        run: |
-          if [[ "${{ matrix.os }}" == "ubuntu-latest" || "${{ matrix.os }}" == "macos-latest" ]]; then
-          tar -czvf eve-${{ matrix.os }}.tar.gz -C target/release/ eve
-          elif [[ "${{ matrix.os }}" == "windows-latest" ]]; then
-            Compress-Archive -Path target\release\eve.exe -DestinationPath eve-${{ matrix.os }}.zip
-          fi
+      - name: Package
+        uses: vimtor/action-zip@v1.2
+        with:
+          files: /target/release/eve 
+          dest: eve-${{ matrix.os }}.zip
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
           name: eve-${{ matrix.os }}
           path: |
-            target/release/eve*
-            eve-${{ matrix.os }}.tar.gz
-            eve-${{ matrix.os }}.zip
+            ${{ github.workspace }}/eve-${{ matrix.os }}.zip
