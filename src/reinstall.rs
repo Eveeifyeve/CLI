@@ -77,5 +77,5 @@ pub fn main() {
 
 #[cfg(not(any(target_os = "windows", target_os = "macos")))]
 pub fn main() {
-    println!({}"This program is designed to run on Windows And MacOS. Please Switch to Windows or MacOS to support this command.", RED);
+    println!("{}This program is designed to run on Windows And MacOS. Please Switch to Windows or MacOS to support this command.", RED);;
 }
