@@ -1,12 +1,12 @@
 name: Build CLI Artifacts
 
 on:
-  push:
+ push:
     branches:
       - Stable
 
 jobs:
-  check_and_test:
+ check_and_test:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
@@ -35,11 +35,11 @@ jobs:
         with:
           command: fmt
           args: -- --check --quiet
-  build:
+
+ build:
     runs-on: ${{ matrix.os }}
     strategy:
       matrix:
-        target: [x86_64-unknown-linux-gnu, x86_64-apple-darwin, x86_64-pc-windows-msvc]
         os: [ubuntu-latest, macos-latest, windows-latest]
     steps:
       - uses: actions/checkout@v2
@@ -56,24 +56,19 @@ jobs:
         uses: actions-rs/cargo@v1
         with:
           command: build
-          args: --release --target ${{ matrix.target }}
+          args: --release --bin eve
       - name: Package
-        if: matrix.os == 'ubuntu-latest'
         run: |
-          tar -czvf cli-${{ matrix.target }}.tar.gz -C target/${{ matrix.target }}/release/ cli
-      - name: Package
-        if: matrix.os == 'macos-latest'
-        run: |
-          tar -czvf cli-${{ matrix.target }}.tar.gz -C target/${{ matrix.target }}/release/ cli
-      - name: Package
-        if: matrix.os == 'windows-latest'
-        run: |
-          Compress-Archive -Path target\${{ matrix.target }}\release\cli.exe -DestinationPath cli-${{ matrix.target }}.zip
+          if [[ "${{ matrix.os }}" == "ubuntu-latest" || "${{ matrix.os }}" == "macos-latest" ]]; then
+            tar -czvf eve-${{ matrix.os }}.tar.gz -C target/release/ eve
+          elif [[ "${{ matrix.os }}" == "windows-latest" ]]; then
+            Compress-Archive -Path target\release\eve.exe -DestinationPath eve-${{ matrix.os }}.zip
+          fi
       - name: Upload Artifact
         uses: actions/upload-artifact@v2
         with:
-          name: cli-${{ matrix.target }}
+          name: eve-${{ matrix.os }}
           path: |
-            target/${{ matrix.target }}/release/cli*
-            target/${{ matrix.target }}/release/cli-${{ matrix.target }}.tar.gz
-            target/${{ matrix.target }}/release/cli-${{ matrix.target }}.zip
+            target/release/eve*
+            eve-${{ matrix.os }}.tar.gz
+            eve-${{ matrix.os }}.zip
