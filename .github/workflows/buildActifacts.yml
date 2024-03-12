@@ -50,6 +50,8 @@ jobs:
           profile: minimal
           toolchain: stable
           override: true
+      - name: Rustup install target
+        run: rustup target add ${{matrix.os}} 
       - name: Install rust-fmt
         run: rustup component add rustfmt
       - name: Build
