@@ -1,4 +1,5 @@
 use std::process::Command;
+use crate::ascii::{RED, GREEN};
 
 const APPS_TO_INSTALL: &[&str] = &["git", "bun", "rust"];
 
@@ -50,7 +51,7 @@ pub fn main() {
 pub fn main() {
     const MACOS_APPS: &[&str] = &[""];
     for app in APPS_TO_INSTALL.iter().chain(MACOS_APPS.iter()) {
-        println!("Installing {}...", app);
+        println!("{}Installing {}...", GREEN, app);
         let output = Command::new("brew")
             .arg("install")
             .arg(app)
@@ -58,10 +59,11 @@ pub fn main() {
             .expect("Failed to execute command");
 
         if output.status.success() {
-            println!("{} installed successfully", app);
+            println!("{}{} installed successfully", GREEN, app);
         } else {
             eprintln!(
-                "Failed to install {}: {}",
+                "{}Failed to install {}: {}",
+                RED,
                 app,
                 String::from_utf8_lossy(&output.stderr)
             );
