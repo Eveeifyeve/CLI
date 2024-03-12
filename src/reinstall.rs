@@ -1,6 +1,9 @@
 use crate::ascii::{GREEN, RED};
+
+#[cfg(any(target_os = "windows", target_os = "macos"))]
 use std::process::Command;
 
+#[cfg(any(target_os = "windows", target_os = "macos"))]
 const APPS_TO_INSTALL: &[&str] = &["git", "bun", "rust"];
 
 #[cfg(target_os = "windows")]
@@ -36,10 +39,11 @@ pub fn main() {
             .expect("Failed to execute command");
 
         if output.status.success() {
-            println!("{} installed successfully", app);
+            println!("{}{} installed successfully", GREEN, app);
         } else {
             eprintln!(
-                "Failed to install {}: {}",
+                "{}Failed to install {}: {}",
+                RED,
                 app,
                 String::from_utf8_lossy(&output.stderr)
             );
@@ -73,5 +77,5 @@ pub fn main() {
 
 #[cfg(target_os = "linux")]
 pub fn main() {
-    println!("This program is designed to run on Windows And MacOS. Please Switch to Windows or MacOS to support this command.");
+    println!({}"This program is designed to run on Windows And MacOS. Please Switch to Windows or MacOS to support this command.", RED);
 }
