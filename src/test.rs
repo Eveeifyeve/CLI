@@ -1,7 +1,7 @@
 #[cfg(test)]
-use std::path::PathBuf;
-#[cfg(test)]
 use super::cli;
+#[cfg(test)]
+use std::path::PathBuf;
 
 #[test]
 fn test_statusr_subcommand() {
@@ -9,7 +9,13 @@ fn test_statusr_subcommand() {
     let matches = app.get_matches_from(vec!["eve", "statusr", "/path/to/directory"]);
 
     assert_eq!(matches.subcommand_name(), Some("statusr"));
-    assert_eq!(matches.subcommand_matches("statusr").unwrap().get_one::<PathBuf>("PATH"), Some(PathBuf::from("/path/to/directory")).as_ref());
+    assert_eq!(
+        matches
+            .subcommand_matches("statusr")
+            .unwrap()
+            .get_one::<PathBuf>("PATH"),
+        Some(PathBuf::from("/path/to/directory")).as_ref()
+    );
 }
 
 #[test]
