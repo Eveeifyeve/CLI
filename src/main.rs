@@ -20,6 +20,11 @@ fn cli() -> Command {
         .about("Checks if you have commited in folders")
         .arg(arg!(<PATH> "").value_parser(clap::value_parser!(PathBuf)))
     )
+    .subcommand(
+        Command::new("gitr")
+            .about("Checks if you have commited in multiple folders")
+            .arg(arg!(<ARGS>... "").value_parser(clap::value_parser!(String)))
+    )
     .subcommand(Command::new("Reinstall").about("Reinstalls Eveeifyeve"))
     .help_template(format!("{}{{name}} {{version}}\n{{author-with-newline}}{{about-with-newline}}\n{{usage-heading}} {{usage}}\n\n {}Commands: \n{{subcommands}}\n {}Options: \n{{options}}", CYAN, YELLOW, YELLOW))
 }
@@ -30,7 +35,7 @@ fn main() {
     match commands.subcommand() {
         Some(("Check_commits", sub_match)) => {
             if let Some(path) = sub_match.get_one::<PathBuf>("PATH") {
-                git::check(path)
+                git::main(path, "status")
             }
         }
         Some(("Reinstall", sub_match)) => {
