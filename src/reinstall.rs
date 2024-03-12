@@ -1,5 +1,5 @@
+use crate::ascii::{GREEN, RED};
 use std::process::Command;
-use crate::ascii::{RED, GREEN};
 
 const APPS_TO_INSTALL: &[&str] = &["git", "bun", "rust"];
 

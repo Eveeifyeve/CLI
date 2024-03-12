@@ -1,6 +1,6 @@
+use crate::ascii::RED;
 use rayon::prelude::*;
 use std::{fs, path::PathBuf, process::Command, sync::Mutex};
-use crate::ascii::RED;
 
 pub fn statusr(path: &PathBuf) {
     let git_dirs = collect_git_dirs(path);
@@ -14,11 +14,15 @@ pub fn statusr(path: &PathBuf) {
 
         let output_str = String::from_utf8_lossy(&output.stdout);
         if !output_str.contains("nothing to commit, working tree clean") {
-            println!("{}Uncommitted changes in: {}{}", RED, git_dir.display(), RED);
+            println!(
+                "{}Uncommitted changes in: {}{}",
+                RED,
+                git_dir.display(),
+                RED
+            );
         }
     });
 }
-
 
 fn collect_git_dirs(path: &PathBuf) -> Vec<PathBuf> {
     let git_dirs = Mutex::new(Vec::new());
