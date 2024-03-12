@@ -50,6 +50,8 @@ jobs:
           override: true
       - name: Install rust-fmt
         run: rustup component add rustfmt
+      - name: Target install
+        run: rustup target add ${{matrix.os}}
       - name: Build
         uses: actions-rs/cargo@v1
         with:
