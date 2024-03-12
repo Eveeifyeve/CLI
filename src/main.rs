@@ -16,7 +16,7 @@ fn cli() -> Command {
     .arg_required_else_help(true)
     .allow_external_subcommands(true)
     .subcommand(
-        Command::new("Check_commits")
+        Command::new("statusr")
         .about("Checks if you have commited in folders")
         .arg(arg!(<PATH> "").value_parser(clap::value_parser!(PathBuf)))
     )
@@ -25,7 +25,7 @@ fn cli() -> Command {
             .about("Checks if you have commited in multiple folders")
             .arg(arg!(<ARGS>... "").value_parser(clap::value_parser!(String)))
     )
-    .subcommand(Command::new("Reinstall").about("Reinstalls Eveeifyeve"))
+    .subcommand(Command::new("reinstall").about("Reinstalls Eveeifyeve"))
     .help_template(format!("{}{{name}} {{version}}\n{{author-with-newline}}{{about-with-newline}}\n{{usage-heading}} {{usage}}\n\n {}Commands: \n{{subcommands}}\n {}Options: \n{{options}}", CYAN, YELLOW, YELLOW))
 }
 
@@ -33,12 +33,12 @@ fn main() {
     let commands = cli().get_matches();
 
     match commands.subcommand() {
-        Some(("Check_commits", sub_match)) => {
+        Some(("statusr", sub_match)) => {
             if let Some(path) = sub_match.get_one::<PathBuf>("PATH") {
                 git::statusr(path)
             }
         }
-        Some(("Reinstall", sub_match)) => {
+        Some(("reinstall", sub_match)) => {
             reinstall::main();
         }
 
