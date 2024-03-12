@@ -55,10 +55,19 @@ jobs:
         with:
           command: build
           args: --release --bin eve
-      - name: Package
+      - name: Package (Windows)
+        shell: powershell
+        run: |
+          if (${{ matrix.os }} -eq "ubuntu-latest" -or ${{ matrix.os }} -eq "macos-latest") {
+            tar -czvf eve-${{ matrix.os }}.tar.gz -C target/release/ eve
+          } elseif (${{ matrix.os }} -eq "windows-latest") {
+            Compress-Archive -Path target\release\eve.exe -DestinationPath eve-${{ matrix.os }}.zip
+          }
+      - name: Package (Linux/macOS)
+        shell: bash
         run: |
           if [[ "${{ matrix.os }}" == "ubuntu-latest" || "${{ matrix.os }}" == "macos-latest" ]]; then
-            tar -czvf eve-${{ matrix.os }}.tar.gz -C target/release/ eve
+          tar -czvf eve-${{ matrix.os }}.tar.gz -C target/release/ eve
           elif [[ "${{ matrix.os }}" == "windows-latest" ]]; then
             Compress-Archive -Path target\release\eve.exe -DestinationPath eve-${{ matrix.os }}.zip
           fi
